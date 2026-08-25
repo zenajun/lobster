@@ -1,13 +1,20 @@
-import PantryItem from '@components/pantry-item'
-import { pantryItems } from '@constants/pantry-list'
+import { useState } from 'react'
 import AppShell from '@components/app-shell'
+import PantryItem from '@components/pantry-item'
+import AddItemForm from '@components/add-item-form'
+import { pantryItems } from '@constants/pantry-list'
 
 
 function App() {
+  const [items, setItems] = useState(pantryItems)
+  
+  const handleAdd = (newItem) => {
+    setItems((prev) => [...prev, newItem]);
+  };
   return (
     <AppShell>
-      <h1>Pantry List</h1>
-      {pantryItems.map((item) => (
+      <AddItemForm onAdd={handleAdd} />
+      {items.map((item) => (
         <PantryItem key={item.name} {...item} />
       ))}
     </AppShell>
